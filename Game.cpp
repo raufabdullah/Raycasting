@@ -28,7 +28,7 @@ Game::Game()
   startText.setFont(font);
   startText.setString("START");
   startText.setCharacterSize(24);
-  startText.setFillColor(sf::Color::Red);
+  startText.setFillColor(sf::Color::Black);
   sf::FloatRect textRect = startText.getLocalBounds();
   startText.setOrigin(textRect.left + textRect.width / 2.0f,
                       textRect.top + textRect.height / 2.0f);
@@ -62,6 +62,19 @@ void Game::run() {
           // position
           player.health = 100;
           player.position = sf::Vector2f(22.0f, 12.0f);
+          
+          // Reset all enemies to starting positions
+          for (auto entity : raycast.entities) {
+            if (entity->getType() == "Seeker") {
+              // Reset to original positions based on entity index
+              if (entity == raycast.entities[0]) {
+                entity->position = sf::Vector2f(8.0f, 8.0f);
+              } else if (entity == raycast.entities[1]) {
+                entity->position = sf::Vector2f(15.0f, 10.0f);
+              }
+            }
+          }
+          
           currentState = Playing;
         }
       }

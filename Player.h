@@ -11,7 +11,7 @@ public:
     sf::Vector2f plane; 
 
     Player();
-    bool updateSpeed(int newSpeed) { speed = newSpeed; return true; }
+    void updateSpeed(int newSpeed) { speed = newSpeed; }
 
     void damage(int dmg);
     void move(float deltaTime, const Map& map, const sf::Keyboard::Key forward, const sf::Keyboard::Key backward);
