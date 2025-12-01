@@ -16,6 +16,8 @@ public:
     void damage(int dmg);
     void move(float deltaTime, const Map& map, const sf::Keyboard::Key forward, const sf::Keyboard::Key backward);
     void rotate(float deltaTime, const sf::Keyboard::Key left, const sf::Keyboard::Key right);
+
+    bool collides(const sf::Vector2f& testPos, const Map& map) const override;
 };
 
 #endif

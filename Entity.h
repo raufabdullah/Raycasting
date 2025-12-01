@@ -18,6 +18,8 @@ public:
     void damage(int amt) { health -= amt; if (health <= 0) isActive = false; }
     virtual void update(class Player& player, const class Map& map, float deltaTime) {}
     virtual void render(sf::RenderWindow& window) {}
+
+    virtual bool collides(const sf::Vector2f& testPos, const Map& map) const = 0;
 };
 
 #endif

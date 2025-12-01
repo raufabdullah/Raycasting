@@ -14,6 +14,7 @@ void Seeker::update(Player& player, const Map& map, float deltaTime) {
     sf::Vector2f diff = player.position - position;
     float distance = std::sqrt(diff.x * diff.x + diff.y * diff.y);
 
+    // Alerts the seeker if user is in range
     updateRange(distance < range);
     if (inRange) {
         updateAlert(true);
@@ -22,14 +23,20 @@ void Seeker::update(Player& player, const Map& map, float deltaTime) {
     if (alert) {
         if (distance > 0) {
             sf::Vector2f dirToPlayer = diff / distance;
-            sf::Vector2f move = dirToPlayer * static_cast<float>(speed) * deltaTime;
-            sf::Vector2f newPos = position + move;
+            float moveSpeed = static_cast<float>(speed) * deltaTime;
+            sf::Vector2f moveDelta = dirToPlayer * moveSpeed;
 
-            int mapX = static_cast<int>(newPos.x);
-            int mapY = static_cast<int>(newPos.y);
-            if (mapX >= 0 && mapX < map.mapWidth && mapY >= 0 && mapY < map.mapHeight &&
-                map.grid[mapY][mapX] == 0) {
-                position = newPos;
+            // Separate X and Y for wall sliding (fixed clipping)
+            sf::Vector2f newPosX = position;
+            newPosX.x += moveDelta.x;
+            if (!collides(newPosX, map)) {
+                position.x = newPosX.x;
+            }
+
+            sf::Vector2f newPosY = position;
+            newPosY.y += moveDelta.y;
+            if (!collides(newPosY, map)) {
+                position.y = newPosY.y;
             }
         }
 

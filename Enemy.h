@@ -16,6 +16,8 @@ public:
     int getCount() const { return count; }
 
     std::string getType() const override { return "Enemy"; }
+
+    bool collides(const sf::Vector2f& testPos, const Map& map) const override;
 };
 
 #endif
