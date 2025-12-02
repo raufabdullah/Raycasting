@@ -4,7 +4,7 @@
 #include "Player.h"
 
 class Enemy : public Entity {
-public:
+protected:
     int range;
     int damage;
     int speed;

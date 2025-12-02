@@ -8,11 +8,11 @@ Game::Game() :  window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Raycasting G
     initMap();
     // spawn two seekers, one at (8, 8) and one at (15, 10)
     Seeker *seeker1 = new Seeker();
-    seeker1->position = sf::Vector2f(8.0f, 8.0f);
+    seeker1->setPosition(sf::Vector2f(8.0f, 8.0f));
     raycast.addEntity(seeker1);
 
     Seeker *seeker2 = new Seeker();
-    seeker2->position = sf::Vector2f(15.0f, 10.0f);
+    seeker2->setPosition(sf::Vector2f(15.0f, 10.0f));
     raycast.addEntity(seeker2);
     currentState = Menu; // starts in menu state
 
@@ -36,9 +36,9 @@ Game::Game() :  window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Raycasting G
                         textRect.top + textRect.height / 2.0f);
     startText.setPosition(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 
-    // Death screen text (big red text that says "get rekt bozo")
+    // Death screen text (big red text that says "You got caught")
     deathText.setFont(font);
-    deathText.setString("get rekt bozo");
+    deathText.setString("You got caught");
     deathText.setCharacterSize(48);
     deathText.setFillColor(sf::Color::Red);
     // center it
@@ -80,17 +80,17 @@ void Game::run() {
                 sf::Vector2f mousePos(event.mouseButton.x, event.mouseButton.y);
                 if (startButton.getGlobalBounds().contains(mousePos)) {
                     // set position and health whenever we start the game to a fixed position
-                    player.health = 100;
-                    player.position = sf::Vector2f(22.0f, 12.0f);
+                    player.sethealth(100);
+                    player.setPosition(sf::Vector2f(22.0f, 12.0f));
                     
                     // Reset all enemies to starting positions (so they don't spawn right next to you)
                     for (auto entity : raycast.entities) {
                         if (entity->getType() == "Seeker") {
                             // Reset to original positions based on entity index
                             if (entity == raycast.entities[0]) {
-                                entity->position = sf::Vector2f(8.0f, 8.0f);
+                                entity->setPosition(sf::Vector2f(8.0f, 8.0f));
                             } else if (entity == raycast.entities[1]) {
-                                entity->position = sf::Vector2f(15.0f, 10.0f);
+                                entity->setPosition(sf::Vector2f(15.0f, 10.0f));
                             }
                         }
                     }
@@ -108,10 +108,10 @@ void Game::run() {
             window.draw(startText);
         } else if (currentState == Playing) {
             // game logic if current state is playing
-            if (player.health <= 0) {
+            if (player.gethealth() <= 0) {
                 // dead, calculate survival time
                 survivalTime = gameTimer.getElapsedTime().asSeconds();
-                survivalText.setString("you survived for: " + std::to_string(static_cast<int>(survivalTime)) + " second(s)");
+                survivalText.setString("You survived for: " + std::to_string(static_cast<int>(survivalTime)) + " second(s)");
 
                 // center the survival text
                 sf::FloatRect survivalRect = survivalText.getLocalBounds();

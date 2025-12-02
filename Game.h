@@ -7,30 +7,31 @@
 #include "Seeker.h"
 
 enum GameState { Menu, Playing, DeathScreen };
+
 class Game {
-public:
-  sf::RenderWindow window;
-  Player player;
-  Map map;
-  RaycastEngine raycast;
-
-  GameState currentState;
-  sf::Font font;
-  sf::Text startText;
-  sf::RectangleShape startButton;
-  sf::Text deathText;
-  sf::Text survivalText;
-  sf::Clock deathTimer;
-  sf::Clock gameTimer;
-  float survivalTime;
-
-  Game();
-  ~Game();
-  void close() { window.close(); }
-  void run();
-
 private:
-  void initMap();
+    sf::RenderWindow window;
+    Player player;
+    Map map;
+    RaycastEngine raycast;
+
+    GameState currentState;
+    sf::Font font;
+    sf::Text startText;
+    sf::RectangleShape startButton;
+    sf::Text deathText;
+    sf::Text survivalText;
+    sf::Clock deathTimer;
+    sf::Clock gameTimer;
+    float survivalTime;
+
+    void initMap();
+
+public:
+    Game();
+    ~Game();
+    void close() { window.close(); }
+    void run();
 };
 
 #endif

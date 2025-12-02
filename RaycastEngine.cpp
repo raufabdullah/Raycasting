@@ -127,7 +127,7 @@ void RaycastEngine::render(sf::RenderWindow& window, const Player& player, const
         double transformX = invDet * (player.dir.y * spriteX - player.dir.x * spriteY);         // how far to the left.right the sprite is
         double transformY = invDet * (-player.plane.y * spriteX + player.plane.x * spriteY);    // how far away the sprite is
 
-        // Skip sprites behind the player, just like i skip [REDACTED] classes
+        // Skip sprites behind the player
         if (transformY <= 0.0) continue;
 
         // Calculate sprites horizontal screen position

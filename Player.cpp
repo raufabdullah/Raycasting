@@ -35,7 +35,7 @@ void Player::move(float deltaTime, const Map& map, const sf::Keyboard::Key forwa
     if (sf::Keyboard::isKeyPressed(backward)) {
         sf::Vector2f moveDelta = dir * (-moveSpeed);
 
-        // Separate X and Y for wall sliding (no clipping ee)
+        // Separate X and Y for wall sliding (to avoid clipping)
         sf::Vector2f newPosX = position;
         newPosX.x += moveDelta.x;
         if (!collides(newPosX, map)) {
